@@ -1,0 +1,168 @@
+<!-- Making Line -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0px ;
+        }
+        .fas {
+            font-size: 2rem;
+            margin-left: 30px;
+        }
+
+    </style>  
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- font icons -->
+    <!-- <i class="fas fa-square"></i>
+    <i class="fas fa-grip-lines"></i> -->
+
+    <!-- canvas is only for drwaing -->
+    <canvas></canvas>
+
+     <script>
+        let canvasboard = document.querySelector("canvas");
+        let tool = canvasboard.getContext("2d");
+    
+        // canvasboard ki hiegth and wrigth 100*150 hoti h default
+        // toh ab hm change kr re h 
+    
+        canvasboard.height = window.innerHeight; 
+        canvasboard.width = window.innerWidth;
+       
+        let body = document.querySelector("body");
+    
+        // icons 
+        let marginformTop = canvasboard.getBoundingClientRect().top;
+        let marginformleft = canvasboard.getBoundingClientRect().left;
+
+
+        let iX,iY,fX,fY;
+
+        let drawingmode = false;
+    
+        // click ko pehhchan k lie
+    
+      
+        // To fix margin error
+
+        body.addEventListener("mousedown", function(e){
+            drawingmode = true;
+            tool.beginPath();
+            tool.moveTo(e.clientX - marginformleft,e.clientY - marginformTop);
+        })
+        body.addEventListener("mouseup", function(e){
+            drawingmode = false;
+        })
+    
+     body.addEventListener("mousemove", function(e){
+
+        if(drawingmode==false){
+            return;
+        }else{
+
+        
+         fX = e.clientX - marginformleft;
+         fY = e.clientY - marginformTop;
+
+         tool.lineTo(fX, fY);
+         tool.stroke();
+
+         iX = fX;
+         iY = fY;
+
+        }
+     })
+    
+    </script>
+
+
+     
+</body>
+<!-- script html me javascript ka kaam krne k lie use hoti h -->
+<script>
+    let canvasboard = document.querySelector("canvas");
+
+    // canvasboard ki hiegth and wrigth 100*150 hoti h default
+    // toh ab hm change kr re h 
+
+    canvasboard.height = window.innerHeight; 
+    canvasboard.width = window.innerWidth;
+   
+    // to use tools 
+    let tool = canvasboard.getContext("2d");
+
+// puri body m kahi b click kr sakta h 
+    let body = document.querySelector("body");
+
+    // icons 
+    let rectTool = document.querySelector(".fa-square");
+    let lineTool = document.querySelector(".fa-grip-lines");
+
+    let iX,iY,fX,fY,CurrentTool;
+
+    // click ko pehhchan k lie
+
+    rectTool.addEventListener("click", function(){
+
+        CurrentTool = rectTool;
+    })
+    
+    lineTool.addEventListener("click", function(){
+
+      CurrentTool = lineTool;
+    })
+
+    // To fix margin error
+
+    let marginformTop = canvasboard.getBoundingClientRect().top;
+    let marginformleft = canvasboard.getBoundingClientRect().left;
+
+    // eventlistener used for starting point and ending point
+    body.addEventListener("mousedown", function(e){
+
+        // client used for pos.. and e object h.
+        iX = e.clientX + marginformleft;
+        iY = e.clientY - marginformTop; 
+   })
+    
+    body.addEventListener("mouseup", function(e){
+
+        fX = e.clientX  + marginformleft;
+        fY = e.clientY - marginformTop;
+
+       let width = fX-iX;
+       let height = fY-iX;
+
+       if(CurrentTool==rectTool){
+
+    //    tool.strok used for making
+    //  this will make rectangle
+
+    tool.strokeRect(iX, iY,width, height);
+
+       }else if(CurrentTool==lineTool){
+
+        // begin is used to start
+           tool.beginPath();
+        //    moveto is starting point
+           tool.moveTo(iX,iY);
+        //    line to is ending point
+           tool.lineTo(fX,fY);
+        //    stroke is for visiblity
+           tool.stroke();
+       }
+
+       
+    }) 
+
+</script>
+</html>

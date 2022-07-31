@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+      
+      .fas {
+            font-size: 2rem;
+        }
+
+        .size-box{
+            height: 30px;
+            width: 100px;
+            border: 2px solid black;  
+            display: flex; 
+            justify-content: center;
+            justify-content: space-evenly;
+            align-items: center;  
+            display: none;
+              
+        }
+        .size1{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: aqua;
+        }
+        
+        .size2{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: aqua;
+        }
+        
+        .size3{
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: aqua;
+        }
+    </style>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <style>
+
+        .size-box{
+            height: 30px;
+            width: 100px;
+            border: 2px solid black;  
+            display: flex; 
+            justify-content: center;
+            justify-content: space-evenly;
+            align-items: center;  
+            display: none;
+              
+        }
+        .size1{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: aqua;
+        }
+        
+        .size2{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: aqua;
+        }
+        
+        .size3{
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: aqua;
+        }
+    
+    
+        .toolbar{
+            height: 60px;
+            width: 160px;
+            background-color: rgb(250, 249, 183);
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 80vw;
+            margin: 0 auto;
+            margin-top: 0px;
+
+        }
+           
+        .imgs{
+            height: 50px;
+            width: 50px;
+            
+            
+        }
+        .color-box{
+            display: flex;
+            border: solid black;
+            background-color: antiquewhite;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-evenly;
+            height: 45px;
+            width: 120px;
+            border-radius: 5px;
+
+        }
+        .color-red{
+            height: 30px;
+            width: 30px;
+            border-radius: 50%; 
+            background-color: red;
+        }
+        .color-blue{
+            height: 30px;
+            width: 30px;
+            border-radius: 50%; 
+            background-color: blue;
+        }
+        .color-green{
+            height: 30px;
+            width: 30px;
+            border-radius: 50%; 
+            background-color: rgb(0, 255, 98);
+        }
+    </style>
+
+    <div class ="toolbar">
+
+        <!-- pencile -->
+        <div class = "tool" id= "pencile"> <img src ="./openboard/pencile.png" alt="" class="imgs">
+            
+             <!-- for size bada chotta -->
+            <div class="size-box">
+                <div class="size1 size"></div>
+                <div class="size2 size"></div>
+                <div class="size3 size"></div>
+            </div>
+        </div>
+              
+                <!-- eraser --> 
+ 
+        <div class = "tool" id= "eraser"> <img src="./openboard/eraser.png" alt="" class="imgs"> 
+        
+                 <!-- for size bada chotta -->
+                 <div class="size-box">
+                    <div class="size1 size"></div>
+                    <div class="size2 size"></div>
+                    <div class="size3 size"></div>
+                </div>
+
+        </div>
+            <!-- shapes -->
+        <div class = "tool" id= "square"> 
+            <i class="fas fa-square" class="shapes"></i> </div>
+
+            <div class = "tool" id= "line"> 
+                <i class="fas fa-grip-lines" class="shapes"></i> </div>
+       
+        <!-- color box -->
+        <div class = "color-box">
+            <div class="color-red"></div>
+            <div class="color-blue"></div>
+            <div class="color-green"></div>
+        </div>
+    </div>
+
+    <canvas></canvas>
+
+    <script>
+        let pencile = document.querySelector("#pencile");
+        let eraser = document.querySelector("#eraser");
+        let rectTool = document.querySelector(".fa-square");
+     let lineTool = document.querySelector(".fa-grip-lines");
+        let options = document.querySelectorAll(".size-box");
+        let ctool = "pencile";
+
+        pencile.addEventListener("click", function(e){
+
+             if(ctool == "pencile"){
+                 options[0].style.display = "flex";
+             }else{
+                 for(let i=0; i<options.length;i++){
+                     options[i].style.display = "none";
+                 }
+                 ctool = "pencile";
+             }
+
+})
+
+ eraser.addEventListener("click", function(e){
+
+             if(ctool == "eraser"){
+                 options[1].style.display = "flex";
+             }else{
+                 ctool = "eraser";
+                 for(let i=0; i < options.length; i++){
+                     
+                    options[i].style.display = "none";
+                 }
+             }
+
+})
+
+    </script>
+
+<script>
+    let canvasboard = document.querySelector("canvas");
+    let tool = canvasboard.getContext("2d");
+
+    // canvasboard ki hiegth and wrigth 100*150 hoti h default
+    // toh ab hm change kr re h 
+
+    canvasboard.height = window.innerHeight; 
+    canvasboard.width = window.innerWidth;
+   
+    let body = document.querySelector("body");
+
+    // icons 
+    let marginformTop = canvasboard.getBoundingClientRect().top;
+    let marginformleft = canvasboard.getBoundingClientRect().left;
+
+
+    let iX,iY,fX,fY;
+
+    let drawingmode = false;
+
+    // click ko pehhchan k lie
+
+  
+    // To fix margin error
+
+    body.addEventListener("mousedown", function(e){
+
+        iX = e.clientX - marginformleft;
+        iY = e.clientY - marginformTop;
+
+        if(ctool==pencile){
+
+        drawingmode = true;
+        tool.beginPath();
+        tool.moveTo(e.clientX - marginformleft,e.clientY - marginformTop);
+
+        }
+    })
+
+    body.addEventListener("mouseup", function(e){
+
+        if(ctool==pencile){
+            drawingmode = false;
+        }
+        else if(ctool == rectTool && ctool==lineTool){
+
+
+       fX = e.clientX  + marginformleft;
+        fY = e.clientY - marginformTop;
+
+       let width = fX-iX;
+       let height = fY-iX;
+
+       if(CurrentTool==rectTool){
+
+    //    tool.strok used for making
+    //  this will make rectangle
+
+     tool.strokeRect(iX, iY,width, height);
+
+       } else if(CurrentTool==lineTool){
+
+        // begin is used to start
+           tool.beginPath();
+        //    moveto is starting point
+           tool.moveTo(iX,iY);
+        //    line to is ending point
+           tool.lineTo(fX,fY);
+        //    stroke is for visiblity
+           tool.stroke();
+
+        }
+    }
+    
+})
+
+ body.addEventListener("mousemove", function(e){
+
+    if(drawingmode==false){
+        return;
+    }else{
+
+    
+     fX = e.clientX - marginformleft;
+     fY = e.clientY - marginformTop;
+
+     tool.lineTo(fX, fY);
+     tool.stroke();
+
+     iX = fX;
+     iY = fY;
+
+    }
+ })
+
+</script>
+
+
+
+</body>
+</html>

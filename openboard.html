@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .maintoolbar{
+          border: 1px solid black;  
+          display: flex;
+          width: 1000px;
+          /* trick element center */
+          margin: 0 auto;
+          height: 120px;
+          align-items: center;
+          justify-content: space-evenly;
+          /* background-color: rgb(248, 248, 227); */
+        }
+        .tool{
+            /* border: 1px solid red;  */
+            height: 50px;
+
+        }
+        .tool-img{
+            height: 50px;
+        }
+        .color-box{
+            border: 1px solid darkblue;
+            border-radius: 3px;
+            height: 50px;
+            width: 170px;
+            align-items: center;
+            justify-content: space-evenly;
+            display: flex;
+        }
+        .color{
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+        }
+        .red{
+            background-color: red;
+        }
+        
+        .yellow{
+            background-color: yellow;
+        }
+        
+        .green{
+            background-color: green;
+        }
+        .shapes{
+            border: 1px solid darkblue;
+            background-color: antiquewhite;
+            height: 50px;
+            width: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        .fas{
+            font-size: 2rem;
+            margin-right: 30px;
+            margin-left: 20px;
+        }
+        </style>
+    <!-- for size -->
+    <style>
+        .size-box{
+            height: 30px;
+            width: 80px;
+            border: 2px solid black;  
+            justify-content: center;
+            justify-content: space-evenly;
+            align-items: center;      
+            display: flex; 
+            display: none;
+        }
+        .size1{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: black;
+        }
+        
+        .size2{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: black;
+        }
+        
+        .size3{
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: black;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class = "maintoolbar">
+        <div class = "tool" id = "pencil"> 
+            <img src="./openboard/pencile.png" alt="" class ="tool-img">
+            <div class="size-box">
+                <div class="size1 size"></div>
+                <div class="size2 size"></div>
+                <div class="size3 size"></div>
+            </div>
+        </div>
+        <div class = "tool" id = "eraser"> 
+            <img src="./openboard/eraser.png" alt="" class ="tool-img">
+            <div class="size-box">
+                <div class="size1 size"></div>
+                <div class="size2 size"></div>
+                <div class="size3 size"></div>
+            </div>
+        </div>
+        <div class = "shapes">
+            <div id="square">
+                <i class="fas fa-solid fa-square"></i>
+                <div class="size-box">
+                    <div class="size1 size"></div>
+                    <div class="size2 size"></div>
+                    <div class="size3 size"></div>
+                </div>
+            </div>
+            <div id = "line">
+                <i class="fas fa-solid fa-lines-leaning"></i>
+                <div class="size-box">
+                    <div class="size1 size"></div>
+                    <div class="size2 size"></div>
+                    <div class="size3 size"></div>
+                </div>
+            </div>
+        </div>
+        <div class="color-box">
+            <div class="color red"> </div>
+            <div class="color yellow"></div>
+            <div class="color green"></div>
+        </div>
+        <div class = "tool" id = "download"> 
+            <img src="./openboard/download.png" alt="" class ="tool-img">
+        </div>
+    </div>
+    <canvas></canvas>
+    <script>
+        let canvasboard = document.querySelector("canvas");
+        canvasboard.height = screen.height;
+        canvasboard.width = screen.width;
+        let pencil = document.querySelector("#pencil");
+        let eraser = document.querySelector("#eraser");
+        let rectangle = document.querySelector("#square");
+        let line = document.querySelector("#line");
+        let download = document.querySelector("#download");
+        let sizeoptions = document.querySelectorAll(".size-box");
+        let pencilsize = 1;
+        let erasersize = 3;
+        let squaresize = 1;
+        let linesize = 1;
+        let ctool = "pencil";
+        // tool.strokeStyle = "brown";
+        // identify > click > double click
+
+        pencil.addEventListener("click", function(e){
+            if(ctool == pencil){
+                // mtlb ye second click h
+                // show size box otion
+                sizeoptions[0].style.display = "flex";
+            }else{
+                // loop pichle vale se size ka option hatane k lie
+                for(let i = 0; i<sizeoptions.length; i++){
+                    sizeoptions[i].style.display = "none";
+                }
+                // pencil.style.border = "1px solid red";
+            }
+            tool.strokeStyle = "black";
+            ctool = pencil;
+            tool.lineWidth = pencilsize;
+        })
+        
+        eraser.addEventListener("click", function(e){
+            if(ctool == eraser){
+                sizeoptions[1].style.display = "flex";
+            }else{
+                for(let i = 0; i<sizeoptions.length; i++){
+                    sizeoptions[i].style.display = "none";
+                }
+                // eraser.style.border = "1px solid red";
+            }
+            tool.strokeStyle = "white";
+            ctool = eraser;
+            tool.lineWidth = erasersize;
+        })
+        
+        rectangle.addEventListener("click", function(e){
+            if(ctool == rectangle){
+                sizeoptions[2].style.display = "flex";
+            }else{
+                for(let i = 0; i<sizeoptions.length; i++){
+                    sizeoptions[i].style.display = "none";
+                }
+                // rectangle.style.border = "1px solid red";
+            }
+            tool.strokeStyle = "black";
+            ctool = rectangle;
+            tool.lineWidth = squaresize;
+        })
+        
+        line.addEventListener("click", function(e){
+            if(ctool == line){
+                sizeoptions[3].style.display = "flex";
+            }else{
+                for(let i = 0; i<sizeoptions.length; i++){
+                    sizeoptions[i].style.display = "none";
+                }
+                // line.style.border = "1px solid red";
+            }
+            tool.strokeStyle = "black";
+            ctool = line;
+            tool.lineWidth = linesize;
+        })
+
+        download.addEventListener("click", (e) => {
+
+            let url = canvasboard.toDataURL();
+
+            let a = document.createElement("a");
+            a.href = url;
+            a.download = "board.jpg";
+            a.click();
+        });
+    </script>
+    <script>
+        
+        let tool = canvasboard.getContext("2d");
+        let ixp , iyp, fxp, fyp;
+        let leftmargin = canvasboard.getBoundingClientRect().left;
+        let topmargin = canvasboard.getBoundingClientRect().top;
+        let body = document.querySelector("body");
+        let drawingmode = false;
+        
+        body.addEventListener("mousedown",function(e){
+            
+            ixp = e.clientX - leftmargin; // intial points
+            iyp = e.clientY - topmargin;  // this give 70 & 16 sub margin k lie 
+            // console.log(ixp); 
+            // console.log(iyp); 
+    
+            // for pencile tool
+            if(ctool == pencil || ctool == eraser){
+                    drawingmode = true;
+                    tool.beginPath();
+                    tool.moveTo(ixp,iyp);
+                }
+            
+        });
+    
+        body.addEventListener("mouseup",function(e){
+
+            if(ctool == pencil || ctool == eraser){
+                drawingmode = false;
+            }
+            else if(ctool == rectangle || ctool == line){
+                // code for rectangle and line
+             fxp = e.clientX + leftmargin; //final x point
+             fyp = e.clientY - topmargin; // final y point
+    
+            let width = fxp - ixp;
+            let height = fyp - iyp;
+
+            if(ctool == rectangle){
+                tool.strokeRect(ixp,iyp,width,height);
+            }else if(ctool == line){
+                tool.beginPath();
+                tool.moveTo(ixp,iyp);
+                tool.lineTo(fxp,fyp);
+                tool.stroke();
+            }
+
+        }
+            
+           
+        });
+    
+        // for pencile
+        body.addEventListener("mousemove", function(e){
+            
+            if(drawingmode == false){
+                return;
+            }
+                fxp = e.clientX + leftmargin; //final x point
+                fyp = e.clientY - topmargin; // final y point
+                tool.lineTo(fxp,fyp);
+                tool.stroke();
+                ixp = fxp;
+                iyp = fyp;
+            
+        });
+    
+    </script>
+
+    <!-- for color change -->
+    <script>
+        let redfill = document.querySelector(".red");
+        let yellowfill = document.querySelector(".yellow");
+        let greenfill = document.querySelector(".green");
+
+        
+        redfill.addEventListener("click", function(){
+            tool.strokeStyle = "red";
+         });
+        
+        yellowfill.addEventListener("click", function(){
+            tool.strokeStyle = "yellow";
+        });
+        
+        greenfill.addEventListener("click", function(){
+            tool.strokeStyle = "green";
+         });
+
+    </script>
+    <!-- for size change -->
+    <script>
+        //event bubbling
+
+        
+        let sizeboxArr = document.querySelectorAll(".size-box");
+        // for pencile
+        sizeboxArr[0].addEventListener("click", function(e){
+            // .currentTarget means box m click
+            // .target means actual box m jaha click hua
+            let elements = ["size1","size2","size3"];
+
+            // class
+            let allclasses = e.target.classList;
+            let firstclass = allclasses[0];
+            let flag = elements.includes(firstclass);
+
+            if(flag == true){
+                
+                if(firstclass == "size1"){
+                    pencilsize = 5;
+                }else if(firstclass == "size2"){
+                    pencilsize = 8;
+                }else if(firstclass == "size3"){
+                    pencilsize = 15;
+                }
+            }
+            tool.lineWidth = pencilsize;
+            // console.log(pencilsize);
+
+        });
+
+        // for eraser
+        sizeboxArr[1].addEventListener("click", function(e){
+            // .currentTarget means box m click
+            // .target means actual box m jaha click hua
+            let elements = ["size1","size2","size3"];
+
+            // class
+            let allclasses = e.target.classList;
+            let firstclass = allclasses[0];
+            let flag = elements.includes(firstclass);
+
+            if(flag == true){
+                
+                if(firstclass == "size1"){
+                    erasersize = 5;
+                }else if(firstclass == "size2"){
+                    erasersize = 10;
+                }else if(firstclass == "size3"){
+                    erasersize = 20;
+                }
+            }
+            tool.lineWidth = erasersize;
+        });
+
+        // for rectangle
+        sizeboxArr[2].addEventListener("click", function(e){
+            // .currentTarget means box m click
+            // .target means actual box m jaha click hua
+            let elements = ["size1","size2","size3"];
+
+            // class
+            let allclasses = e.target.classList;
+            let firstclass = allclasses[0];
+            let flag = elements.includes(firstclass);
+
+            if(flag == true){
+                
+                if(firstclass == "size1"){
+                    squaresize = 5;
+                }else if(firstclass == "size2"){
+                    squaresize = 8;
+                }else if(firstclass == "size3"){
+                    squaresize = 15;
+                }
+            }
+            tool.lineWidth = squaresize;
+        });
+
+        // for line
+        sizeboxArr[3].addEventListener("click", function(e){
+            // .currentTarget means box m click
+            // .target means actual box m jaha click hua
+            let elements = ["size1","size2","size3"];
+
+            // class
+            let allclasses = e.target.classList;
+            let firstclass = allclasses[0];
+            let flag = elements.includes(firstclass);
+
+            if(flag == true){
+                
+                if(firstclass == "size1"){
+                    linesize = 5;
+                }else if(firstclass == "size2"){
+                    linesize = 8;
+                }else if(firstclass == "size3"){
+                    linesize = 15;
+                }
+            }
+            tool.lineWidth = linesize;
+        });
+    </script>
+</body>
+</html>

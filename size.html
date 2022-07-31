@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .size-box{
+            height: 30px;
+            width: 150px;
+            border: 2px solid black;  
+            display: flex; 
+            justify-content: center;
+            justify-content: space-evenly;
+            align-items: center;      
+        }
+        .size1{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: lightblue;
+        }
+        
+        .size2{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: lightblue;
+        }
+        
+        .size3{
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="size-box">
+        <div class="size1 size"></div>
+        <div class="size2 size"></div>
+        <div class="size3 size"></div>
+    </div>
+    <div>
+        
+    </div>
+    <!-- <script>
+        //event bubbling
+        let sizebox = document.querySelector(".size-box");
+        sizebox.addEventListener("click", function(e){
+            // .currentTarget means box m click
+            // .target means actual box m jaha click hua
+            let elements = ["size1","size2","size3"];
+
+            // class
+            let allclasses = e.target.classList;
+            let firstclass = allclasses[0];
+            let flag = elements.includes(firstclass);
+
+            if(flag == true){
+                
+                if(firstclass == "size1"){
+
+                }else if(firstclass == "size2"){
+                    
+                }else if(firstclass == "size3"){
+                    
+                }
+            }
+        });
+    </script> -->
+</body>
+</html>

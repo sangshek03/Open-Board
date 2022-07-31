@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <canvas></canvas>
+
+    <script>
+        let canvasboard = document.querySelector("canvas");
+    
+        // canvasboard ki hiegth and wrigth 100*150 hoti h default
+        // toh ab hm change kr re h 
+    
+        canvasboard.height = window.innerHeight; 
+        canvasboard.width = window.innerWidth;
+       
+        // to use tools 
+        let tool = canvasboard.getContext("2d");
+    
+    // puri body m kahi b click kr sakta h 
+        let body = document.querySelector("body");
+    
+        // icons 
+        let marginformTop = canvasboard.getBoundingClientRect().top;
+        let marginformleft = canvasboard.getBoundingClientRect().left;
+
+
+        let iX,iY,fX,fY,CurrentTool;
+
+        let drawingmode = false;
+
+        body.addEventListener("mousedown", function(e){
+            drawingmode = true;
+        })
+        body.addEventListener("mouseup", function(e){
+            drawingmode = false;
+        })
+    
+     body.addEventListener("mousemove", function(e){
+
+        if(drawingmode==false){
+            return;
+        }else{
+
+        
+         fX = e.clientX + marginformleft;
+         fY = e.clientY - marginformTop;
+
+         tool.beginPath();
+         tool.moveTo(iX, iY);
+         tool.lineTo(fX, fY);
+         tool.stroke();
+
+         iX = fX;
+         iy = fY;
+
+        }
+     })
+    
+    </script>
+    
+</body>
+</html>
